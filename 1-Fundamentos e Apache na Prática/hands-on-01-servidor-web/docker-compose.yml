@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  servidor-web:
+    image: httpd:2.4-alpine
+    container_name: meu-primeiro-servidor-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html:/usr/local/apache2/htdocs/
+    restart: unless-stopped
+    environment:
+      - HTTPD_PREFIX=/usr/local/apache2
