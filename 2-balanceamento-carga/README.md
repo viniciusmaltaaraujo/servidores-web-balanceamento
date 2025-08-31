@@ -30,7 +30,6 @@ ab -V
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/viniciusmaltaaraujo/balanceamento-carga.git
 cd balanceamento-carga/2-Balanceamento%20de%20Carga%20na%20Prática
 ```
 

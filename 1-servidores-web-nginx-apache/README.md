@@ -2,7 +2,6 @@
 
 Este repositório contém todos os exemplos práticos (hands-on) da **Aula 1 – Servidores Web com Nginx e Apache**, organizados por vídeo para facilitar o acompanhamento durante as videoaulas.
 
-```
 
 ## 🛠️ Pré-requisitos
 
@@ -28,12 +27,11 @@ docker compose version
 git --version
 curl --version
 ab -V
-
+```
 ## 🚀 Como Usar Este Repositório
 
 ### 1. Clone o Repositório
 ```bash
-git clone https://github.com/viniciusmaltaaraujo/servidores-web-balanceamento.git
 cd servidores-web-balanceamento
 ```
 
