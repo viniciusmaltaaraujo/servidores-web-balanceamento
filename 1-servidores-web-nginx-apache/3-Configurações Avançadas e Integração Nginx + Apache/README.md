@@ -76,10 +76,10 @@ hands-on-03-nginx-apache-integration/
    ```
 
 3. **Acessar no navegador**:
-   - Via **Nginx (proxy para Apache)** → http://localhost  
-   - **Estático direto no Nginx** → http://localhost/static/nginx-static.html  
-   - **URL amigável (rewrite)** → http://localhost/user/123 (tente outros IDs)  
-   - **Redirecionamento** → http://localhost/old-page.html  
+   - Via **Nginx (proxy para Apache)** → http://localhost:8080  
+   - **Estático direto no Nginx** → http://localhost:8080/static/nginx-static.html  
+   - **URL amigável (rewrite)** → http://localhost:8080/user/123 (tente outros IDs)  
+   - **Redirecionamento** → http://localhost:8080/old-page.html  
    - **Apache direto (debug)** → http://localhost:8081  
 
 4. **Recarregar configs**  
@@ -112,8 +112,8 @@ Abra F12 → **Network** → selecione a request → veja o header `X-Proxy-Cach
 
 **Windows PowerShell:**
 ```powershell
-curl.exe -o NUL -s -w "Tempo Total: %{time_total}`n" http://localhost/
-curl.exe -I http://localhost/ | findstr /R /C:"X-Proxy-Cache" /C:"Cache-Control" /C:"Age"
+curl.exe -o NUL -s -w "Tempo Total: %{time_total}`n" http://localhost:8080/
+curl.exe -I http://localhost:8080/ | findstr /R /C:"X-Proxy-Cache" /C:"Cache-Control" /C:"Age"
 ```
 
 🔎 Saída esperada:
@@ -122,29 +122,29 @@ curl.exe -I http://localhost/ | findstr /R /C:"X-Proxy-Cache" /C:"Cache-Control"
 
 **Linux/macOS:**
 ```bash
-curl -o /dev/null -s -w "Tempo Total: %{time_total}\n" http://localhost/
-curl -I http://localhost/ | egrep -i "X-Proxy-Cache|Cache-Control|Age"
+curl -o /dev/null -s -w "Tempo Total: %{time_total}\n" http://localhost:8080/
+curl -I http://localhost:8080/ | egrep -i "X-Proxy-Cache|Cache-Control|Age"
 ```
 
 ### 3. ApacheBench (se instalado)
 ```bash
-ab -n 100 -c 10 http://localhost/user/123
+ab -n 100 -c 10 http://localhost:8080/user/123
 ```
 
 ---
 
 ## 📖 Exemplos Esperados
 
-- `http://localhost/user/123`  
+- `http://localhost:8080/user/123`  
   ```
   Página do Usuário
   Bem-vindo, usuário ID: 123
   ```
 
-- `http://localhost/old-page.html`  
+- `http://localhost:8080/old-page.html`  
   → Redireciona automaticamente para `/index.html`.
 
-- `http://localhost/static/nginx-static.html`  
+- `http://localhost:8080/static/nginx-static.html`  
   → Página simples entregue diretamente pelo Nginx.
 
 ---
