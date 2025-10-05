@@ -82,8 +82,8 @@ abc456def789   apache:custom       "httpd-foreground"       0.0.0.0:8080->80/tcp
 
 ### ⚙️ Passo 2: Acessando os Sites
 
-- 👉 Site 1 (Nginx): http://localhost:80  
-- 👉 Site 2 (Nginx): http://localhost:81  
+- 👉 Site 1 (Nginx): http://localhost:8088  
+- 👉 Site 2 (Nginx): http://localhost:8081  
 - 👉 Apache (para comparação): http://localhost:8080  
 
 ---
@@ -104,7 +104,7 @@ Observe os headers e o tempo de resposta.
 Exemplo: 100 requisições, 10 concorrentes:
 
 ```bash
-ab -n 100 -c 10 http://localhost:80/big-image.jpg   # Nginx
+ab -n 100 -c 10 http://localhost:8088/big-image.jpg   # Nginx
 ab -n 100 -c 10 http://localhost:8080/big-image.jpg # Apache
 ```
 
