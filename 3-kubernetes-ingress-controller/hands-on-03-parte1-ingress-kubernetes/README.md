@@ -119,6 +119,10 @@ kubectl patch svc ingress-nginx-controller -n ingress-nginx -p '{"spec": {"type"
 
 # Abrir o túnel em outro terminal (como Administrador)
 minikube tunnel
+```
+
+> 💡 **Dica:** mantenha o terminal com o túnel aberto enquanto testa o Ingress.  
+
 
 ---
 
