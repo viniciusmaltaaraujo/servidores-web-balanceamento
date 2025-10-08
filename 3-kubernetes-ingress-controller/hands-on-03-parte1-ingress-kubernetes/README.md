@@ -106,6 +106,29 @@ minikube ip
 ```
 > Anote esse IP – será usado nos testes (`http://<IP_DO_MINIKUBE>`).
 
+---
+
+### ⚠️ Importante para usuários Windows (Docker Desktop + WSL2)
+
+O Minikube no Windows pode criar o Ingress Controller como `NodePort` por padrão, impedindo o acesso via navegador.  
+Para corrigir, execute os comandos abaixo no **PowerShell (como Administrador)** **após habilitar o addon de ingress**:
+
+```powershell
+# Corrigir tipo do Ingress Controller (necessário no Windows)
+kubectl patch svc ingress-nginx-controller -n ingress-nginx -p '{"spec": {"type":"LoadBalancer"}}'
+
+# Abrir o túnel em outro terminal (como Administrador)
+minikube tunnel
+```
+
+> 💡 **Dica:** mantenha o terminal com o túnel aberto enquanto testa o Ingress.  
+> Depois disso, o acesso local deve funcionar normalmente em:
+> ```
+> http://127.0.0.1/meu-app
+> ```
+
+---
+
 ### 4) Crie o **Ingress**
 Aplique o Ingress (já fornecido neste repositório):
 ```bash
