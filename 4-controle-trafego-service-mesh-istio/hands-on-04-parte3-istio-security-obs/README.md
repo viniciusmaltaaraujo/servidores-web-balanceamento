@@ -119,10 +119,12 @@ kubectl get peerauthentication -A
 
 ### 5) Gerar tráfego para observabilidade
 
+Windows PowerShell
 ```powershell
 1..100 | % { curl.exe -s http://127.0.0.1 > $null }
 ```
 
+Linux/macOS
 ```bash
 for i in {1..100}; do curl -s http://127.0.0.1 > /dev/null; done
 ```
@@ -130,6 +132,46 @@ for i in {1..100}; do curl -s http://127.0.0.1 > /dev/null; done
 ------------------------------------------------------------------------
 
 ### 6) Abrir ferramentas de Observabilidade (3 consoles separados)
+
+---
+
+### ⚙️ (Ajuste Necessário) Habilitar Tracing no Istio
+
+> Por padrão, o Istio **não envia traces** para o Jaeger até que a configuração de tracing seja ativada.
+
+```bash
+kubectl -n istio-system edit configmap istio
+```
+
+Adicione (ou verifique) o seguinte bloco:
+
+```yaml
+data:
+  mesh: |-
+    defaultConfig:
+      tracing:
+        sampling: 100
+        zipkin:
+          address: jaeger-collector.istio-system.svc.cluster.local:9411
+```
+
+```bash
+kubectl rollout restart deployment istiod -n istio-system
+kubectl rollout restart deployment -n default
+```
+
+Gere tráfego:
+
+Windows PowerShell
+```powershell
+1..50 | ForEach-Object { Invoke-WebRequest -UseBasicParsing "http://127.0.0.1" | Out-Null }
+```
+Linux/macOS
+```bash
+for i in $(seq 1 50); do curl -s http://127.0.0.1; donc
+```
+
+---
 
 Abra **3 terminais diferentes** e rode os port-forwards:
 
