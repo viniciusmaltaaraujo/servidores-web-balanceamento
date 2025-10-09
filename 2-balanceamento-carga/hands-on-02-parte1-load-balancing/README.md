@@ -170,17 +170,25 @@ docker-compose exec nginx-balancer nginx -s reload
 - **Navegador (Console — F12)** — cole este snippet para disparar 30 requisições **em paralelo** e ver quem respondeu (via header `X-Backend-Server`):
   ```js
   (async () => {
-    const n = 30, cont = {};
-    const tasks = Array.from({length:n}, async (_, i) => {
-      const r = await fetch('/', { cache: 'no-store' });
-      const who = r.headers.get('X-Backend-Server') || 'desconhecido';
-      cont[who] = (cont[who] || 0) + 1;
-      console.log(i+1, who);
-      r.body?.cancel?.();
-    });
-    await Promise.allSettled(tasks);
-    console.log('Resumo:', cont);
-  })();
+  const n = 50;
+  const cont = {};
+  
+  const tasks = Array.from({ length: n }).map((_, i) =>
+    fetch("/", { cache: "no-store" })
+      .then((r) => {
+        const who = r.headers.get("X-Backend-Server") || "desconhecido";
+        cont[who] = (cont[who] || 0) + 1;
+        console.log(i + 1, who);
+        r.body?.cancel?.();
+      })
+      .catch((err) => console.error(`Erro ${i + 1}:`, err))
+  );
+
+  // Espera todas terminarem
+  await Promise.allSettled(tasks);
+  console.log("Resumo:", cont);
+})();
+
   ```
 
 - **Descobrindo IPs ↔ nomes dos containers** (para mostrar “quem é quem”):
