@@ -138,7 +138,7 @@ Abra **3 terminais diferentes** e rode os port-forwards:
 kubectl -n istio-system port-forward svc/grafana 3000:3000
 
 # Console 2 - Jaeger
-kubectl -n istio-system port-forward svc/jaeger-query 16686:16686
+kubectl -n istio-system port-forward svc/tracing 16686:80
 
 # Console 3 - Kiali
 kubectl -n istio-system port-forward svc/kiali 20001:20001
