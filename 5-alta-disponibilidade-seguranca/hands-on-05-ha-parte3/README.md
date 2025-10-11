@@ -251,8 +251,19 @@ ab -n 20 -c 20 http://localhost:8080/api/
 
 **Windows PowerShell**:
 
-``` powershell
-1..20 | % { curl.exe -s -o $null -w "Status: %{http_code}`n" http://localhost:8080/api/ }
+``` Navegador Web F12
+(async () => {
+  const url = "http://localhost:8080/api/";
+  const total = 30;
+  const promises = Array.from({length: total}, (_, i) =>
+    fetch(url).then(r => ({i: i+1, status: r.status})).catch(e => ({i: i+1, status: 'ERR', error: e.message}))
+  );
+
+  const results = await Promise.all(promises);
+  results.forEach(r => console.log(`#${r.i} → ${r.status}`));
+  const blocked = results.filter(r => r.status === 403).length;
+  const ok = results.filter(r => typeof r.status === 'number' && r.status >=200 && r.status < 400).length;
+})();
 ```
 
 Esperado:\
