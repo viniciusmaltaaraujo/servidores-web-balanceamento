@@ -249,9 +249,9 @@ Esperado: **403 Forbidden**
 ab -n 20 -c 20 http://localhost:8080/api/
 ```
 
-**Windows PowerShell**:
+**Navegador Web F12l**:
 
-``` Navegador Web F12
+``` 
 (async () => {
   const url = "http://localhost:8080/api/";
   const total = 30;
